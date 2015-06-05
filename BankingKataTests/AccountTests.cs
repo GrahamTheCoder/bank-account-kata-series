@@ -61,7 +61,14 @@ namespace BankingKataTests
 
         public static Money operator +(Money left, Money right)
         {
-            return new Money(left.m_Pounds + right.m_Pounds);
+            var leftPounds = left.m_Pounds;
+            var rightPounds = right.m_Pounds;
+            return new Money(leftPounds + rightPounds);
+        }
+
+        public override string ToString()
+        {
+            return $"Pounds: {m_Pounds}";
         }
     }
 
@@ -76,7 +83,7 @@ namespace BankingKataTests
 
         public void Deposit(Money money)
         {
-            m_Balance = money;
+            m_Balance += money;
         }
 
         public void GetBalance(Action<Money> action)

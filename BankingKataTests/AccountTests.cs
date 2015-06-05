@@ -25,15 +25,18 @@ namespace BankingKataTests
         public void Depositing100IncrementsBalanceBy100(Money initialBalance)
         {
             var account = new Account(initialBalance);
-            account.Deposit(new Money(100));
+            var deposit = new Money(100);
+            account.Deposit(deposit);
             Money balance = null;
             account.GetBalance(b => { balance = b; });
-            Assert.That(balance, EqualTo(new Money(100)));
+            var expectedMoney = initialBalance + deposit;
+            Assert.That(balance, EqualTo(expectedMoney));
         }
 
-        public IEnumerable<Money> InitialBalances()
+        public IEnumerable<TestCaseData> InitialBalances()
         {
-            yield return new Money(0);
+            yield return new TestCaseData(new Money(0)).SetName("No money");
+            yield return new TestCaseData(new Money(50)).SetName("50 monies");
         }
 
         private static EqualConstraint EqualTo(Money expected)
@@ -54,6 +57,11 @@ namespace BankingKataTests
         public bool Equals(Money other)
         {
             return m_Pounds == other?.m_Pounds;
+        }
+
+        public static Money operator +(Money left, Money right)
+        {
+            return new Money(left.m_Pounds + right.m_Pounds);
         }
     }
 

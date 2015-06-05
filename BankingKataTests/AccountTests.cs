@@ -36,31 +36,38 @@ namespace BankingKataTests
         }
     }
 
-    public class Money
+    public class Money : IEquatable<Money>
     {
+        private readonly int m_Pounds;
+
         public Money(int pounds)
         {
-            throw new NotImplementedException();
+            m_Pounds = pounds;
+        }
+
+        public bool Equals(Money other)
+        {
+            return m_Pounds == other?.m_Pounds;
         }
     }
 
     public class Account
     {
-        private readonly Money m_IntialBalance;
+        private Money m_Balance;
 
         public Account(Money intialBalance)
         {
-            m_IntialBalance = intialBalance;
+            m_Balance = intialBalance;
         }
 
         public void Deposit(Money money)
         {
-            throw new NotImplementedException();
+            m_Balance = money;
         }
 
         public void GetBalance(Action<Money> action)
         {
-            throw new NotImplementedException();
+            action(m_Balance);
         }
     }
 }

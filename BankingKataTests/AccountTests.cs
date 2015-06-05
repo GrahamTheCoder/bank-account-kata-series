@@ -21,13 +21,19 @@ namespace BankingKataTests
         }
 
         [Test]
-        public void Depositing100IncrementsBalanceBy100()
+        [TestCaseSource(nameof(InitialBalances))]
+        public void Depositing100IncrementsBalanceBy100(Money initialBalance)
         {
-            var account = new Account(new Money(0));
+            var account = new Account(initialBalance);
             account.Deposit(new Money(100));
             Money balance = null;
             account.GetBalance(b => { balance = b; });
             Assert.That(balance, EqualTo(new Money(100)));
+        }
+
+        public IEnumerable<Money> InitialBalances()
+        {
+            yield return new Money(0);
         }
 
         private static EqualConstraint EqualTo(Money expected)

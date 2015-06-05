@@ -33,10 +33,21 @@ namespace BankingKataTests
             Assert.That(balance, EqualTo(expectedMoney));
         }
 
+        [Test]
+        public void DepositingNegativeAmountThrows()
+        {
+            var account = new Account(new Money(0));
+            var deposit = new Money(-30);
+            TestDelegate tryDeposit = () => account.Deposit(deposit);
+            Assert.That(tryDeposit, Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+
         public IEnumerable<TestCaseData> InitialBalances()
         {
             yield return new TestCaseData(new Money(0)).SetName("No money");
             yield return new TestCaseData(new Money(50)).SetName("50 monies");
+            yield return new TestCaseData(new Money(-20)).SetName("-20 monies");
         }
 
         private static EqualConstraint EqualTo(Money expected)
@@ -70,6 +81,11 @@ namespace BankingKataTests
         {
             return $"Pounds: {m_Pounds}";
         }
+
+        public void AssertPositive(Exception exceptionOnAssertionFail)
+        {
+            if (m_Pounds <= 0) throw exceptionOnAssertionFail;
+        }
     }
 
     public class Account
@@ -81,8 +97,11 @@ namespace BankingKataTests
             m_Balance = intialBalance;
         }
 
+
         public void Deposit(Money money)
         {
+            var argumentOutOfRangeException = new ArgumentOutOfRangeException("Cannot deposit negative amount of money");
+            money.AssertPositive(argumentOutOfRangeException);
             m_Balance += money;
         }
 

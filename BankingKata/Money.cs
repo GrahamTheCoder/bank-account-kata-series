@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace BankingKata
 {
     public class Money
@@ -17,7 +19,8 @@ namespace BankingKata
 
         public override string ToString()
         {
-            return _amount.ToString("£0.00");
+            var currencyFormat = "c";
+            return _amount.ToString(currencyFormat, new CultureInfo("en-GB"));
         }
 
         public static Money operator + (Money @this, Money other)

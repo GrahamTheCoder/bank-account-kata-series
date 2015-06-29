@@ -17,7 +17,7 @@ namespace BankingKata
 
         public override string ToString()
         {
-            return _amount.ToString("0.00");
+            return _amount.ToString("£0.00");
         }
 
         public static Money operator + (Money @this, Money other)

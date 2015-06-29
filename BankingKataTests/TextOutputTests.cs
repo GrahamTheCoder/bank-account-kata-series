@@ -68,7 +68,7 @@ namespace BankingKataTests
         public void PrintCurrentBalance(Account acc)
         {
             var balance = acc.CalculateBalance();
-            m_StreamWriter.WriteLine(@"Balance: £{0}", balance.ToString());
+            m_StreamWriter.WriteLine(@"Balance: {0}", balance.ToString());
         }
     }
 }

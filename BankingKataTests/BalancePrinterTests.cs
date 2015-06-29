@@ -1,16 +1,17 @@
 ﻿using System.IO;
 using BankingKata;
 using NUnit.Framework;
+using static BankingKataTests.AccountPrinterTestsBase;
 
 namespace BankingKataTests
 {
     [TestFixture]
-    class TextOutputTests
+    class BalanceAccountPrinterTests
     {
         [Test]
         public void CanPrintBalanceOfEmptyAccount()
         {
-            var acc = CreateAccount();
+            var acc = AccountPrinterTestsBase.CreateAccount();
             var output = new StringWriter();
             var printer = new AccountPrinter(output);
 
@@ -43,16 +44,21 @@ namespace BankingKataTests
 
             Assert.That(output.ToString(), Is.EqualTo("Balance: £0.00\r\n"));
         }
+    }
 
-        private static Account CreateAccount(Money depositAmount = null)
+    [TestFixture]
+    class LastTransactionAccountPrinterTests
+    {
+        [Test]
+        public void BehavesIfNoTransactionsMade()
         {
-            var transactionLog = new Ledger();
-            var acc = new Account(transactionLog);
-            if (depositAmount != null)
-            {
-                acc.Deposit(depositAmount);
-            }
-            return acc;
+            var acc = CreateAccount();
+            var output = new StringWriter();
+            var printer = new AccountPrinter(output);
+
+            printer.PrintMostRecentTransaction(acc);
+
+            Assert.That(output.ToString(), Is.StringContaining("No transactions have been made"));
         }
     }
 
@@ -69,6 +75,11 @@ namespace BankingKataTests
         {
             var balance = acc.CalculateBalance();
             m_StreamWriter.WriteLine(@"Balance: {0}", balance.ToString());
+        }
+
+        public void PrintMostRecentTransaction(Account acc)
+        {
+
         }
     }
 }

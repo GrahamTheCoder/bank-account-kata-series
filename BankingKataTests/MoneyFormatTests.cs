@@ -13,10 +13,12 @@ namespace BankingKataTests
         }
 
 
-        [Test]
-        public void ToStringConvertsTheDecimalValueToAString()
+        [TestCase(0, "0.00")]
+        [TestCase(1234, "1,234.00")]
+        public void ToStringConvertsTheDecimalValueToAString(decimal moneyValue, string expectedMoneyStringWithoutCurrency)
         {
-            Assert.That(new Money(4m).ToString(), Is.EqualTo("£4.00"));
+            var actualMoneyString = new Money(moneyValue).ToString();
+            Assert.That(actualMoneyString, Is.StringEnding(expectedMoneyStringWithoutCurrency));
         }
     }
 }

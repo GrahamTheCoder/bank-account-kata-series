@@ -41,7 +41,7 @@ namespace BankingKataTests
 
             printer.PrintCurrentBalance(acc);
 
-            Assert.That(output.ToString(), Is.EqualTo(@"Balance: £0.00"));
+            Assert.That(output.ToString(), Is.EqualTo("Balance: £0.00\r\n"));
         }
 
         private static Account CreateAccount(Money depositAmount = null)
@@ -68,7 +68,7 @@ namespace BankingKataTests
         public void PrintCurrentBalance(Account acc)
         {
             var balance = acc.CalculateBalance();
-            m_StreamWriter.WriteLine(balance.ToString());
+            m_StreamWriter.WriteLine(@"Balance: £{0}", balance.ToString());
         }
     }
 }

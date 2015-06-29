@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using BankingKata;
 using NUnit.Framework;
 
@@ -35,6 +30,18 @@ namespace BankingKataTests
             printer.PrintCurrentBalance(acc);
 
             Assert.That(output.ToString(), Is.StringContaining(money.ToString()));
+        }
+
+        [Test]
+        public void BalanceOutputIsOfCorrectFormat()
+        {
+            var acc = CreateAccount();
+            var output = new StringWriter();
+            var printer = new AccountPrinter(output);
+
+            printer.PrintCurrentBalance(acc);
+
+            Assert.That(output.ToString(), Is.EqualTo(@"Balance: £0.00"));
         }
 
         private static Account CreateAccount(Money depositAmount = null)

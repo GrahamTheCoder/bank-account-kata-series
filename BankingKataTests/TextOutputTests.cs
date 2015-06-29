@@ -15,12 +15,37 @@ namespace BankingKataTests
         [Test]
         public void CurrentBalanceIsPrinted()
         {
-            var transactionLog = new Ledger();
-            var acc = new Account(transactionLog);
+            var acc = CreateAccount();
             var output = new StringWriter();
             var printer = new AccountPrinter(output);
+
             printer.PrintCurrentBalance(acc);
+
             Assert.That(output.ToString(), Is.StringContaining(new Money(0m).ToString()));
+        }
+
+        [Test]
+        public void ModifiedBalanceIsPrinted()
+        {
+            var money = new Money(2m);
+            var acc = CreateAccount(money);
+            var output = new StringWriter();
+            var printer = new AccountPrinter(output);
+
+            printer.PrintCurrentBalance(acc);
+
+            Assert.That(output.ToString(), Is.StringContaining(money.ToString()));
+        }
+
+        private static Account CreateAccount(Money depositAmount = null)
+        {
+            var transactionLog = new Ledger();
+            var acc = new Account(transactionLog);
+            if (depositAmount != null)
+            {
+                acc.Deposit(depositAmount);
+            }
+            return acc;
         }
     }
 

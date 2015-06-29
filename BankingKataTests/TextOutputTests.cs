@@ -35,7 +35,8 @@ namespace BankingKataTests
 
         public void PrintCurrentBalance(Account acc)
         {
-
+            var balance = acc.CalculateBalance();
+            m_StreamWriter.WriteLine(balance.ToString());
         }
     }
 }

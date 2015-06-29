@@ -11,7 +11,7 @@ namespace BankingKataTests
         [Test]
         public void CanPrintBalanceOfEmptyAccount()
         {
-            var acc = AccountPrinterTestsBase.CreateAccount();
+            var acc = CreateAccount();
             var output = new StringWriter();
             var printer = new AccountPrinter(output);
 
@@ -79,7 +79,7 @@ namespace BankingKataTests
 
         public void PrintMostRecentTransaction(Account acc)
         {
-
+            m_StreamWriter.WriteLine("No transactions have been made");
         }
     }
 }

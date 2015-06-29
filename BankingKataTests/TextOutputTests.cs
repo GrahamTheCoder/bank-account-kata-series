@@ -26,7 +26,7 @@ namespace BankingKataTests
 
     internal class AccountPrinter
     {
-        private TextWriter m_StreamWriter;
+        private readonly TextWriter m_StreamWriter;
 
         public AccountPrinter(TextWriter streamWriter)
         {

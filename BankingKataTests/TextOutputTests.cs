@@ -8,7 +8,7 @@ namespace BankingKataTests
     class TextOutputTests
     {
         [Test]
-        public void CurrentBalanceIsPrinted()
+        public void CanPrintBalanceOfEmptyAccount()
         {
             var acc = CreateAccount();
             var output = new StringWriter();
@@ -20,7 +20,7 @@ namespace BankingKataTests
         }
 
         [Test]
-        public void ModifiedBalanceIsPrinted()
+        public void AccountBalanceIsPrinted()
         {
             var money = new Money(2m);
             var acc = CreateAccount(money);

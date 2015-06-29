@@ -51,6 +51,7 @@
     <Compile Include="AccountTests.cs" />
     <Compile Include="MoneyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextOutputTests.cs" />
     <Compile Include="TransactionLogTests.cs" />
   </ItemGroup>
   <ItemGroup>

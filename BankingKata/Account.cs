@@ -21,7 +21,12 @@ namespace BankingKata
 
         public Money CalculateBalance()
         {
-            return _transactionLog.Accept(new BalanceCalculatingVisitor(), new Money(0m));
+            return Aggregate(new BalanceCalculatingVisitor(), new Money(0m));
+        }
+
+        public T Aggregate<T>(ITransactionVisitor<T> transactionVisitor, T seed)
+        {
+            return _transactionLog.Accept(transactionVisitor, seed);
         }
 
         public void Withdraw(Money money)

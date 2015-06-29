@@ -9,7 +9,7 @@ namespace BankingKata
             _transactionLog = transactionLog;
         }
 
-        public Account() : this(new Ledger())
+        public Account() : this(new Ledger(new DateTimeSource()))
         {
         }
 
